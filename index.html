@@ -51,7 +51,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Series Player</h1>
+      <h1>Movie Player</h1>
       <!-- HTML code for the search bar -->
       <div class="container">
         <input
@@ -86,7 +86,7 @@
 
             // Update the src attribute of the iframe element with the movie ID
             const iframeElement = document.getElementById("movieEmbed");
-            iframeElemenft.src = `https://vidsrc.to/embed/tv/${id}`;
+            iframeElement.src = `https://vidsrc.to/embed/tv/${id}`;
           })
           .catch((error) => {
             console.error("An error occurred:", error);
