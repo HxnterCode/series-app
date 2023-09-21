@@ -70,7 +70,7 @@
       // JavaScript code that connects to TMDB API and retrieves the movie ID
       function getMovieId() {
         const query = document.getElementById("searchBar").value; // Get the value from the search bar
-        const apiKey = "API_KEY";
+        const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
         const url = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(
           query
         )}`;
@@ -86,7 +86,7 @@
 
             // Update the src attribute of the iframe element with the movie ID
             const iframeElement = document.getElementById("movieEmbed");
-            iframeElement.src = `https://vidsrc.to/embed/tv/${id}`;
+            irameElemenft.src = `https://vidsrc.to/embed/tv/${id}`;
           })
           .catch((error) => {
             console.error("An error occurred:", error);
