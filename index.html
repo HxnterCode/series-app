@@ -1,8 +1,8 @@
 <html>
   <head>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Young+Serif&display=swap');
-      /* CSS code */
+      @import url(https://fonts.googleapis.com/css2?family=Young+Serif&display=swap); /* Import the Young Serif font */
+      /* Define some common styles for the body and h1 elements */
       body {
         background-color: #f1e8e8;
         font-family: Arial, sans-serif;
@@ -11,21 +11,28 @@
       h1 {
         color: #333333;
         text-align: center;
-        font-family: 'Young Serif', serif;
+        font-family: "Young Serif, serif";
       }
 
+      /* Use a class selector for the container element */
       .container {
         width: 80%;
         margin: 0 auto;
+        display: flex; /* Use flexbox layout */
+        flex-direction: column; /* Make the container elements stack vertically */
+        align-items: center; /* Center the container elements horizontally */
       }
 
-      .video {
+      /* Use an id selector for the video element */
+      #video {
         position: relative;
         padding-bottom: 56.25%; /* 16:9 aspect ratio */
         height: 0;
+        width: 100%; /* Make the video element take up the full width of the container */
       }
 
-      .video iframe {
+      /* Use a descendant selector for the iframe element inside the video element */
+      #video iframe {
         position: absolute;
         top: 0;
         left: 0;
@@ -34,36 +41,54 @@
         border: 2px solid #000;
       }
 
+      /* Use an id selector for the search bar element */
       #searchBar {
         padding: 10px;
-        border: 1px solid #000000;
-        border-radius: 4px;
+        border-radius: 6px; /* Use a consistent border radius value */
+        border: 2px solid #000; /* Use a consistent border width value */
         font-size: 16px;
-        background-color: #f5f5f5;
+        background-color: transparent; /* Use a transparent background color */
         width: 300px;
         margin-bottom: 10px;
-        font-family: 'Young Serif', serif;
-        border-radius: 6px;
-        border: 2px solid #000;
-        background-color: transparent;
-        align-items: center;
-        justify-content: center;
-        
+        font-family: "Young Serif, serif";
       }
 
-      button {
+      /* Use an id selector for the button element */
+      #button {
         padding: 10px;
         font-size: 16px;
-        border: none;
         background-color: #4caf50;
         color: white;
         cursor: pointer;
-        border: 2px solid #000;
-        border-radius: 6px;
-        align-items: center;
-        justify-content: center;
+        margin-bottom: 10px;
+        border-radius: 6px; /* Use a consistent border radius value */
       }
 
+      /* Use media queries to apply different styles for different screen sizes */
+
+      @media (max-width: 768px) {
+        /* For screens smaller than or equal to 768px */
+
+        h1 {
+          font-size: 2rem; /* Reduce the font size of the heading */
+        }
+
+        #searchBar {
+          width: 250px; /* Reduce the width of the search bar */
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* For screens smaller than or equal to 480px */
+
+        h1 {
+          font-size: 1.5rem; /* Reduce the font size of the heading further */
+        }
+
+        #searchBar {
+          width: 200px; /* Reduce the width of the search bar further */
+        }
+      }
     </style>
   </head>
   <body>
@@ -74,29 +99,33 @@
         <input
           type="text"
           id="searchBar"
-          placeholder="Enter tv series name"
+          placeholder="Enter"
+          movie
+          name
         />
-        <button onclick="getMovieId()">Search</button>
+        <button id="button" onclick="getMovieId()">Search</button>
       </div>
-      <div class="video">
+      <div id="video">
         <iframe src="" type="" id="movieEmbed" allowfullscreen></iframe>
       </div>
     </div>
-
     <script>
       // JavaScript code that connects to TMDB API and retrieves the movie ID
       function getMovieId() {
         const query = document.getElementById("searchBar").value; // Get the value from the search bar
         const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
+
+        // Encode the query parameter using encodeURIComponent function
         const url = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(
           query
         )}`;
 
-        // Make an HTTP request to the TMDB API
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            // Extract the ID from the response
+        // Make an HTTP request to the TMDB API using async/await syntax
+        async function fetchMovieId() {
+          try {
+            const response = await fetch(url); // Wait for the response
+            const data = await response.json(); // Wait for the data
+            // Extract the ID from the data
             const id = data.results[0].id;
 
             console.log(`The ID of the first search result is: ${id}`);
@@ -104,14 +133,14 @@
             // Update the src attribute of the iframe element with the movie ID
             const iframeElement = document.getElementById("movieEmbed");
             iframeElement.src = `https://vidsrc.to/embed/tv/${id}`;
-          })
-          .catch((error) => {
+          } catch (error) {
             console.error("An error occurred:", error);
-          });
-      }
+          }
+        }
 
-      // Example usage: search for 'The Shawshank Redemption'
-      // getMovieId('The Shawshank Redemption');
+        // Call the fetchMovieId function
+        fetchMovieId();
+      }
     </script>
   </body>
 </html>
