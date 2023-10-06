@@ -109,7 +109,7 @@
     </div>
     <script src="config.js"></script>
     <script>
-      apiKey = ${{secrets.API_KEY}}
+      apiKey = ${{env.secrets.API_KEY}}
     
       // JavaScript code that connects to TMDB API and retrieves the movie ID
       function getMovieId() {
