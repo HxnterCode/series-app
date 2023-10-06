@@ -116,7 +116,7 @@
         const query = document.getElementById("searchBar").value; // Get the value from the search bar
 
         // Encode the query parameter using encodeURIComponent function
-        const url = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(
+        const url = `https://api.tmdb.org/3/search/tv?api_key=` + API_KEY + `&query=${encodeURIComponent(
           query
         )}`;
 
