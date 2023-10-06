@@ -111,7 +111,7 @@
     </div>
     <script src='config.js'></script>
     <script>
-      var apiKey = config.api_key
+      const apiKey = process.env.api_key
     
       // JavaScript code that connects to TMDB API and retrieves the movie ID
       function getMovieId() {
