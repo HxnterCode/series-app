@@ -111,11 +111,11 @@
     </div>
     <script type='text/javascript' src='config.js' ></script>
     <script>
+      var apiKey = config.api_key
     
       // JavaScript code that connects to TMDB API and retrieves the movie ID
       function getMovieId() {
         const query = document.getElementById("searchBar").value; // Get the value from the search bar
-        const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
 
         // Encode the query parameter using encodeURIComponent function
         const url = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(
