@@ -1,145 +1,186 @@
-<html>
-  <head>
-    <style>
-      @import url(https://fonts.googleapis.com/css2?family=Young+Serif&display=swap); /* Import the Young Serif font */
-      /* Define some common styles for the body and h1 elements */
-      body {
-        background-color: #f1e8e8;
-        font-family: Arial, sans-serif;
-      }
+<!DOCTYPE html>
+<html lang="en">
 
-      h1 {
-        color: #333333;
-        text-align: center;
-        font-family: 'Young Serif', serif;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TV Series Player</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Young Serif', serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
 
-      /* Use a class selector for the container element */
-      .container {
-        width: 80%;
-        margin: 0 auto;
-        display: flex; /* Use flexbox layout */
-        flex-direction: column; /* Make the container elements stack vertically */
-        align-items: center; /* Center the container elements horizontally */
-      }
+    header {
+      background-color: #287c2b;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
 
-      /* Use an id selector for the video element */
-      #video {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        height: 0;
-        width: 100%; /* Make the video element take up the full width of the container */
-      }
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
 
-      /* Use a descendant selector for the iframe element inside the video element */
-      #video iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border: 2px solid #000;
-      }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #287c2b;
+    }
 
-      /* Use an id selector for the search bar element */
-      #searchBar {
-        padding: 10px;
-        border-radius: 6px; /* Use a consistent border radius value */
-        border: 2px solid #000; /* Use a consistent border width value */
-        font-size: 16px;
-        background-color: transparent; /* Use a transparent background color */
-        width: 300px;
-        margin-bottom: 10px;
-        font-family: "Young Serif, serif";
-      }
+    .mainh1 {
+      color: white
+    }
 
-      /* Use an id selector for the button element */
-      #button {
-        padding: 10px;
-        font-size: 16px;
-        background-color: #4caf50;
-        color: white;
-        cursor: pointer;
-        margin-bottom: 10px;
-        border-radius: 6px; /* Use a consistent border radius value */
-      }
+    #searchBar {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #287c2b;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
 
-      /* Use media queries to apply different styles for different screen sizes */
+    #button {
+      width: 100%;
+      padding: 10px;
+      background-color: #287c2b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-      @media (max-width: 768px) {
-        /* For screens smaller than or equal to 768px */
+    #video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      margin-top: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
 
-        h1 {
-          font-size: 2rem; /* Reduce the font size of the heading */
-        }
+    #video iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 8px;
+    }
 
-        #searchBar {
-          width: 250px; /* Reduce the width of the search bar */
-        }
-      }
+    #details {
+      margin-top: 20px;
+    }
 
-      @media (max-width: 480px) {
-        /* For screens smaller than or equal to 480px */
+    #details img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
 
-        h1 {
-          font-size: 1.5rem; /* Reduce the font size of the heading further */
-        }
+    #details p {
+      margin-bottom: 10px;
+    }
 
-        #searchBar {
-          width: 200px; /* Reduce the width of the search bar further */
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>TV Series Player</h1>
-      <!-- HTML code for the search bar -->
-      <div class="container">
-        <input
-          type="text"
-          id="searchBar"
-          placeholder="Enter"
-        />
-        <button id="button" onclick="getMovieId()">Search</button>
-      </div>
-      <div id="video">
-        <iframe src="" type="" id="movieEmbed" allowfullscreen></iframe>
-      </div>
+    #details strong {
+      color: #287c2b;
+    }
+
+    #details .ratings {
+      display: flex;
+      align-items: center;
+    }
+
+    #details .star {
+      color: #ffac33;
+      margin-right: 5px;
+    }
+
+    #details button {
+      width: 100%;
+      padding: 10px;
+      background-color: #287c2b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1 class="mainh1">TV Series Player</h1>
+  </header>
+  <div class="container" id="container">
+    <input type="text" id="searchBar" placeholder="Enter TV series name" />
+    <button id="button" onclick="getSeriesId()">Search</button>
+    <div id="video">
+      <iframe src="" type="" id="seriesEmbed" allowfullscreen></iframe>
     </div>
-    <script>
-      apiKey = '72af0d7a1271d59db62a3d2fe9c4be77'
-    
-      // JavaScript code that connects to TMDB API and retrieves the movie ID
-      function getMovieId() {
-        const query = document.getElementById("searchBar").value; // Get the value from the search bar
+    <div id="details"></div>
+  </div>
 
-        // Encode the query parameter using encodeURIComponent function
-        const url = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(
-          query
-        )}`;
+  <script>
+    async function getSeriesId() {
+      const query = document.getElementById("searchBar").value;
+      const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
+      const searchUrl = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
 
-        // Make an HTTP request to the TMDB API using async/await syntax
-        async function fetchMovieId() {
-          try {
-            const response = await fetch(url); // Wait for the response
-            const data = await response.json(); // Wait for the data
-            // Extract the ID from the data
-            const id = data.results[0].id;
+      try {
+        const searchResponse = await fetch(searchUrl);
+        const searchData = await searchResponse.json();
+        const seriesId = searchData.results[0].id;
 
-            console.log(`The ID of the first search result is: ${id}`);
+        console.log(`The ID of the first search result is: ${seriesId}`);
 
-            // Update the src attribute of the iframe element with the movie ID
-            const iframeElement = document.getElementById("movieEmbed");
-            iframeElement.src = `https://vidsrc.to/embed/tv/${id}`;
-          } catch (error) {
-            console.error("An error occurred:", error);
-          }
-        }
+        const detailsUrl = `https://api.tmdb.org/3/tv/${seriesId}?api_key=${apiKey}`;
+        const detailsResponse = await fetch(detailsUrl);
+        const detailsData = await detailsResponse.json();
 
-        // Call the fetchMovieId function
-        fetchMovieId();
+        // Extract details
+        const title = detailsData.name;
+        const posterPath = detailsData.poster_path;
+        const detailsText = detailsData.overview;
+        const genres = detailsData.genres.map(genre => genre.name).join(", ");
+        const castUrl = `https://api.tmdb.org/3/tv/${seriesId}/credits?api_key=${apiKey}`;
+        const castResponse = await fetch(castUrl);
+        const castData = await castResponse.json();
+        const cast = castData.cast.slice(0, 5).map(actor => actor.name).join(", ");
+        const ratings = detailsData.vote_average;
+
+        // Display details
+        document.getElementById("video").innerHTML = `
+          <iframe src="https://vidsrc.to/embed/tv/${seriesId}" type="" id="seriesEmbed" allowfullscreen></iframe>
+        `;
+        document.getElementById("details").innerHTML = `
+          <h1>${title}</h1>
+          <img src="https://image.tmdb.org/t/p/w300/${posterPath}" alt="${title} Poster">
+          <p><strong>Details:</strong> ${detailsText}</p>
+          <p><strong>Genres:</strong> ${genres}</p>
+          <p><strong>Cast:</strong> ${cast}</p>
+          <p class="ratings"><strong>Ratings:</strong> <span class="star"> &#9733;</span>${ratings}/10</p>
+        `;
+      } catch (error) {
+        console.error("An error occurred:", error);
       }
-    </script>
-  </body>
+    }
+  </script>
+</body>
+
 </html>
