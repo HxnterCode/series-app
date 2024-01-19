@@ -37,6 +37,10 @@
       color: #287c2b;
     }
 
+    .mainh1 {
+      color: white;
+    }
+
     #searchBar {
       width: 100%;
       padding: 10px;
@@ -121,13 +125,13 @@
 
 <body>
   <header>
-    <h1>TV Series Player</h1>
+    <h1 class="mainh1">TV Series Player</h1>
   </header>
   <div class="container" id="container">
     <input type="text" id="searchBar" placeholder="Enter TV series name" />
     <button id="button" onclick="getSeriesId()">Search</button>
     <div id="video">
-      <iframe src="" type="" id="seriesEmbed" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen="true"></iframe>
+      
     </div>
     <div id="details"></div>
   </div>
@@ -143,7 +147,7 @@
         const searchData = await searchResponse.json();
         const seriesId = searchData.results[0].id;
 
-        console.log(`The ID of the first search result is: ${seriesId}`);
+        
 
         const detailsUrl = `https://api.tmdb.org/3/tv/${seriesId}?api_key=${apiKey}`;
         const detailsResponse = await fetch(detailsUrl);
