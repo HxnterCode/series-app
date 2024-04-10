@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TV Series Player</title>
+  <title>TV Show Player</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
   <style>
     body {
@@ -13,6 +13,10 @@
       font-family: 'Young Serif', serif;
       background-color: #f9f9f9;
       color: #333;
+    }
+
+    .mainh1 {
+      color: white
     }
 
     header {
@@ -35,10 +39,6 @@
       font-size: 2rem;
       margin-bottom: 20px;
       color: #287c2b;
-    }
-
-    .mainh1 {
-      color: white;
     }
 
     #searchBar {
@@ -68,7 +68,6 @@
       height: 0;
       margin-top: 20px;
       border-radius: 8px;
-      overflow: hidden;
     }
 
     #video iframe {
@@ -125,19 +124,19 @@
 
 <body>
   <header>
-    <h1 class="mainh1">TV Series Player</h1>
+    <h1 class="mainh1">TV Show Player</h1>
   </header>
   <div class="container" id="container">
-    <input type="text" id="searchBar" placeholder="Enter TV series name" />
-    <button id="button" onclick="getSeriesId()">Search</button>
+    <input type="text" id="searchBar" placeholder="Enter show name" />
+    <button id="button" onclick="getMovieId()">Search</button>
     <div id="video">
-      
+    
     </div>
     <div id="details"></div>
   </div>
 
   <script>
-    async function getSeriesId() {
+    async function getMovieId() {
       const query = document.getElementById("searchBar").value;
       const apiKey = "72af0d7a1271d59db62a3d2fe9c4be77";
       const searchUrl = `https://api.tmdb.org/3/search/tv?api_key=${apiKey}&query=${encodeURIComponent(query)}`;
@@ -145,29 +144,35 @@
       try {
         const searchResponse = await fetch(searchUrl);
         const searchData = await searchResponse.json();
-        const seriesId = searchData.results[0].id;
+        const movieId = searchData.results[0].id;
 
-        
+        console.log(`The ID of the first search result is: ${movieId}`);
 
-        const detailsUrl = `https://api.tmdb.org/3/tv/${seriesId}?api_key=${apiKey}`;
+        // Construct the iframe URL
+        const iframeUrl = `https://vidsrc.to/embed/tv/${movieId}`;
+
+        // Display the iframe
+        document.getElementById("video").innerHTML = `
+          <iframe src="${iframeUrl}" id="movieEmbed" allow="autoplay; fullscreen; picture-in-picture; encrypted-media; ambient-light-sensor; display-capture"></iframe>
+        `;
+
+        // Fetch and display movie details
+        const detailsUrl = `https://api.tmdb.org/3/movie/${movieId}?api_key=${apiKey}`;
         const detailsResponse = await fetch(detailsUrl);
         const detailsData = await detailsResponse.json();
 
         // Extract details
-        const title = detailsData.name;
+        const title = detailsData.title;
         const posterPath = detailsData.poster_path;
         const detailsText = detailsData.overview;
         const genres = detailsData.genres.map(genre => genre.name).join(", ");
-        const castUrl = `https://api.tmdb.org/3/tv/${seriesId}/credits?api_key=${apiKey}`;
+        const castUrl = `https://api.tmdb.org/3/movie/${movieId}/credits?api_key=${apiKey}`;
         const castResponse = await fetch(castUrl);
         const castData = await castResponse.json();
         const cast = castData.cast.slice(0, 5).map(actor => actor.name).join(", ");
         const ratings = detailsData.vote_average;
 
-        // Display details
-        document.getElementById("video").innerHTML = `
-          <iframe src="https://vidsrc.to/embed/tv/${seriesId}?autoplay=true" type="" id="seriesEmbed" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen="true"></iframe>
-        `;
+        // Display additional details
         document.getElementById("details").innerHTML = `
           <h1>${title}</h1>
           <img src="https://image.tmdb.org/t/p/w300/${posterPath}" alt="${title} Poster">
