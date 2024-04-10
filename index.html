@@ -157,7 +157,7 @@
         `;
 
         // Fetch and display movie details
-        const detailsUrl = `https://api.tmdb.org/3/movie/${movieId}?api_key=${apiKey}`;
+        const detailsUrl = `https://api.tmdb.org/3/tv/${movieId}?api_key=${apiKey}`;
         const detailsResponse = await fetch(detailsUrl);
         const detailsData = await detailsResponse.json();
 
